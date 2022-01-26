@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Main from "./Navigation/Main";
+import Camera from "./Navigation/Camera";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function MyStack() {
   return (
-    <View style={styles.container}>
-      <Text>Hi mortem</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Stack.Navigator
+      
+      >
+      <Stack.Screen
+        name="Main"
+        component={Main}
+        options={{headerShown:false}}
+      />
+      <Stack.Screen
+        name='Camera'
+        component={Camera}
+        options={{headerShown:false}}
+      />
+    </Stack.Navigator>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+};
+
+export default App;
