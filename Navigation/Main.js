@@ -20,6 +20,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const Stack = createNativeStackNavigator();
 
+const FUNCIONES = [ 
+    require("../Galery/xsd.jpg"),
+    require("../Galery/xsd.jpg"),
+    require("../Galery/xsd.jpg"),
+    require("../Galery/xsd.jpg")
+]
 
 
 const DATA = [
@@ -46,9 +52,6 @@ const Item = ({ title }) => (
       <Text style={estilos.textoAlter}>{title}</Text>
     </View>
   );
-
-
-
 
 const ancho = Dimensions.get("window").width;
 const alto = Dimensions.get("window").height;
@@ -87,13 +90,30 @@ const Main = ({ navigation }) => {
                 </View>
                 <View style={estilos.containerControlF2}>
                     <View style={estilos.containerContrF2C0}>
-                        <FlatList 
+                        
+                        <FlatList
+                            data={FUNCIONES}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem={ ({ item }) => 
+                                <View style={estilos.posterImage}>
+                                    <Image style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
+                                            source={item}
+                                    />
+                                    {/* <Text style={estilos.textoAlter}>{item}</Text> */}
+                                </View>
+                            } 
+                            keyExtractor={item => item.id}
+                        />
+
+                        {/* <FlatList 
                             data={DATA}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                             renderItem={renderItem} 
                             keyExtractor={item => item.id} 
-                        />
+                        /> */}
+
                     </View>
                 </View>
             </View>
@@ -178,7 +198,7 @@ const estilos = StyleSheet.create({
     containerControlF2: { flex: 6, backgroundColor: "rgba(255,0,0,0)", justifyContent: "center", alignItems: "center", width: '100%' },
     containerContrF1C1: { flex: 1, flexDirection: 'column', backgroundColor: "rgba(255,0,0,0)", justifyContent: "center", alignItems: "flex-start" },
     containerContrF1C2: { flex: 1, flexDirection: 'column', backgroundColor: "rgba(255,0,0,0)", justifyContent: 'center', alignItems: "flex-end", paddingRight: '5%' },
-    containerContrF2C0: { flex: 1, flexDirection: 'column', backgroundColor: "rgba(255,0,0,1)", justifyContent: 'center', alignItems: "center"},
+    containerContrF2C0: { flex: 1, flexDirection: 'column', backgroundColor: "rgba(0,0,0,1)", justifyContent: 'center', alignItems: "center"},
 
     iconCamera: { height: 90, width: 90, borderRadius: 50 },
     iconDonate: { height: '100%', width: '10%' },
@@ -200,7 +220,7 @@ const estilos = StyleSheet.create({
 
     videoMain: { flex: 1, width: '50%', alignItems: 'stretch', borderRadius: 7 },
 
-    posterImage: { flex:1, height: '95%', resizeMode: 'cover', borderRadius: 7, backgroundColor:'#000', margin:5, justifyContent:'center', alignItems:'center' }
+    posterImage: { flex:1, width:200,height: '95%', resizeMode: 'cover', borderRadius: 7, backgroundColor:'rgba(0,255,0,0.1)', margin:5, justifyContent:'center', alignItems:'center' }
 });
 
 export default Main;
