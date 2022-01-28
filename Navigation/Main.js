@@ -21,10 +21,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 const Stack = createNativeStackNavigator();
 
 const FUNCIONES = [ 
-    require("../Galery/xsd.jpg"),
-    require("../Galery/xsd.jpg"),
-    require("../Galery/xsd.jpg"),
-    require("../Galery/xsd.jpg")
+    {comando: require("../Galery/xsd.jpg"), name:'Saturation'},
+    {comando: require("../Galery/xsd.jpg"), name:'Contrast'},
+    {comando: require("../Galery/xsd.jpg"), name:'Lighting'},
+    {comando: require("../Galery/xsd.jpg"), name:'Hue'},
+    {comando: require("../Galery/xsd.jpg"), name:'Blur'},
+    {comando: require("../Galery/xsd.jpg"), name:'Filters'},   
 ]
 
 
@@ -82,7 +84,7 @@ const Main = ({ navigation }) => {
             <View style={estilos.containerPresen}>
                 <View style={estilos.containerControlF1}>
                     <View style={estilos.containerContrF1C1}>
-                        <Text style={estilos.textoClaro2}>Camera controls</Text>
+                        <Text style={estilos.textoClaro2}>Realtime camera controls</Text>
                     </View>
                     <View style={estilos.containerContrF1C2}>
                         <Image source={require('../Galery/icon_settings.png')} style={estilos.iconSettings} />
@@ -98,9 +100,9 @@ const Main = ({ navigation }) => {
                             renderItem={ ({ item }) => 
                                 <View style={estilos.posterImage}>
                                     <Image style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
-                                            source={item}
+                                            source={item.comando}
                                     />
-                                    {/* <Text style={estilos.textoAlter}>{item}</Text> */}
+                                    <Text style={estilos.textoAlter}>{item.name}</Text>
                                 </View>
                             } 
                             keyExtractor={item => item.id}
@@ -215,7 +217,7 @@ const estilos = StyleSheet.create({
     textoClaro2: { color: "#fff", fontSize: 14, paddingLeft: '9%' },
     textoClaroSmall: { color: "#fff", fontSize: 10, padding: 0 },
     textoHub: { color: "#fff", fontSize: 17, paddingBottom: 0 },
-    textoAlter: { color: "#fff", fontSize: 20, padding: 7 },
+    textoAlter: { color: "#fff", fontSize: 17, padding: 7 },
     
 
     videoMain: { flex: 1, width: '50%', alignItems: 'stretch', borderRadius: 7 },
