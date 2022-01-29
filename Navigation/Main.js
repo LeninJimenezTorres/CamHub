@@ -4,7 +4,8 @@ import {
     Image, ImageBackground, Linking,
     Dimensions, FlatList, Animated,
 } from 'react-native';
-import React, {useState} from 'react';
+import * as React from 'react';
+//import React, {useState} from 'react';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Link, NavigationContainer } from '@react-navigation/native';
@@ -21,52 +22,44 @@ import { LinearGradient } from 'expo-linear-gradient';
 const Stack = createNativeStackNavigator();
 
 const FUNCIONES = [ 
-    {comando: require("../Galery/xsd.jpg"), name:'Saturation'},
-    {comando: require("../Galery/xsd.jpg"), name:'Contrast'},
-    {comando: require("../Galery/xsd.jpg"), name:'Lighting'},
-    {comando: require("../Galery/xsd.jpg"), name:'Hue'},
-    {comando: require("../Galery/xsd.jpg"), name:'Blur'},
-    {comando: require("../Galery/xsd.jpg"), name:'Filters'},   
+    {comando: require("../Galery/func_hue.png"), name:'Hue'},
+    {comando: require("../Galery/func_blur.png"), name:'Blur'},
+    {comando: require("../Galery/func_contrast.png"), name:'Contrast'},
+    {comando: require("../Galery/func_light.png"), name:'Lighting'},
+    {comando: require("../Galery/func_satu.png"), name:'Saturation'},
+    {comando: require("../Galery/func_filters.png"), name:'Filters'},   
 ]
 
+const FUNCIONES_VIDEOS = [ 
+    {comando: require("../Galery/video_hue.mp4"), name:'Hue', vid: 1},
+    {comando: require("../Galery/video_contrast.mp4"), name:'Contrast', vid: 2},
+    {comando: require("../Galery/video_light.mp4"), name:'Lighting', vid: 3},
+    {comando: require("../Galery/video_blur.mp4"), name:'Blur', vid: 4},
+    {comando: require("../Galery/video_sat.mp4"), name:'Saturation', vid: 5},
+    {comando: require("../Galery/video_filters.mp4"), name:'Filters', vid: 6}   
+]
 
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d74',
-        title: 'Fourth Item',
-    },
-  ];
-  
-const Item = ({ title }) => (
-    <View style={estilos.posterImage}>
-      <Text style={estilos.textoAlter}>{title}</Text>
-    </View>
-  );
+const FUNCIONES_VIDEOS2 = [ 
+    "video_hue.mp4",
+    "video_contrast.mp4",
+    "video_light.mp4",
+    "video_blur.mp4",
+    "video_sat.mp4",
+    "video_filters.mp4",   
+]
 
 const ancho = Dimensions.get("window").width;
 const alto = Dimensions.get("window").height;
 
-const ANCHO_CONTENEDOR = ancho * 0.7;
-const ESPACIO = 10;
-
 const Main = ({ navigation }) => {
     const video = React.useRef(null);
+    const video1 = React.useRef(null);
+    const video2 = React.useRef(null);
+    const video3 = React.useRef(null);
+    const video4 = React.useRef(null);
+    const video5 = React.useRef(null);
+    const video6 = React.useRef(null);
     const [status, setStatus] = React.useState({});
-
-    const renderItem = ({ item }) => <Item title={item.title} />;
-
     return (
         <View style={estilos.containerMain}>
             <View style={estilos.containerLogo}>
@@ -91,9 +84,8 @@ const Main = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={estilos.containerControlF2}>
-                    <View style={estilos.containerContrF2C0}>
-                        
-                        <FlatList
+                    <View style={estilos.containerContrF2C0}>                    
+                        {/* <FlatList
                             data={FUNCIONES}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
@@ -106,17 +98,29 @@ const Main = ({ navigation }) => {
                                 </View>
                             } 
                             keyExtractor={item => item.id}
-                        />
-
-                        {/* <FlatList 
-                            data={DATA}
+                        />  */}
+                        <FlatList
+                            data={FUNCIONES_VIDEOS}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
-                            renderItem={renderItem} 
-                            keyExtractor={item => item.id} 
-                        /> */}
-
-                    </View>
+                            renderItem={ ({ item }) => 
+                                <View style={estilos.posterImage}>
+                                    <Video
+                                        ref={'video'+item.vid}
+                                        style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
+                                        source={item.comando} 
+                                        useNativeControls
+                                        resizeMode="contain"
+                                        isLooping
+                                        shouldPlay
+                                        //onPlaybackStatusUpdate={status =>('video'+{item}).current.playAsync()}
+                                    />
+                                    <Text style={estilos.textoAlter}>{item.name}</Text>
+                                </View>
+                            } 
+                            keyExtractor={item => item.id}
+                        />  
+                   </View>
                 </View>
             </View>
             <View style={estilos.containerCam}>
@@ -222,7 +226,7 @@ const estilos = StyleSheet.create({
 
     videoMain: { flex: 1, width: '50%', alignItems: 'stretch', borderRadius: 7 },
 
-    posterImage: { flex:1, width:200,height: '95%', resizeMode: 'cover', borderRadius: 7, backgroundColor:'rgba(0,255,0,0.1)', margin:5, justifyContent:'center', alignItems:'center' }
+    posterImage: { flex:1, width:150,height: '95%', resizeMode: 'cover', borderRadius: 7, backgroundColor:'rgba(0,255,0,0)', margin:5, justifyContent:'center', alignItems:'center' }
 });
 
 export default Main;
