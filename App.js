@@ -8,9 +8,7 @@ const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator
-      
-      >
+    <Stack.Navigator>
       <Stack.Screen
         name="Main"
         component={Main}

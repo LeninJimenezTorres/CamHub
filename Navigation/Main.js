@@ -1,57 +1,19 @@
 import {
-    View, Text, StyleSheet,
-    Alert, Button, TouchableOpacity,
-    Image, ImageBackground, Linking,
-    Dimensions, FlatList, Animated,
-} from 'react-native';
-import * as React from 'react';
-//import React, {useState} from 'react';
+    View, Text, StyleSheet, Alert, Button, TouchableOpacity,
+    Image, ImageBackground, Linking, Dimensions, FlatList, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Link, NavigationContainer } from '@react-navigation/native';
-import Camera from './Camera';
-import {
-    SafeAreaView,
-    SafeAreaProvider,
-    SafeAreaInsetsContext,
-    useSafeAreaInsets,
-    initialWindowMetrics,
-} from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const Stack = createNativeStackNavigator();
-
-const FUNCIONES = [ 
-    {comando: require("../Galery/func_hue.png"), name:'Hue'},
-    {comando: require("../Galery/func_blur.png"), name:'Blur'},
-    {comando: require("../Galery/func_contrast.png"), name:'Contrast'},
-    {comando: require("../Galery/func_light.png"), name:'Lighting'},
-    {comando: require("../Galery/func_satu.png"), name:'Saturation'},
-    {comando: require("../Galery/func_filters.png"), name:'Filters'},   
-]
-
-const FUNCIONES_VIDEOS = [ 
-    {comando: require("../Galery/video_hue.mp4"), name:'Hue', vid: 1},
-    {comando: require("../Galery/video_contrast.mp4"), name:'Contrast', vid: 2},
-    {comando: require("../Galery/video_light.mp4"), name:'Lighting', vid: 3},
-    {comando: require("../Galery/video_blur.mp4"), name:'Blur', vid: 4},
-    {comando: require("../Galery/video_sat.mp4"), name:'Saturation', vid: 5},
-    {comando: require("../Galery/video_filters.mp4"), name:'Filters', vid: 6}   
-]
-
-const FUNCIONES_VIDEOS2 = [ 
-    "video_hue.mp4",
-    "video_contrast.mp4",
-    "video_light.mp4",
-    "video_blur.mp4",
-    "video_sat.mp4",
-    "video_filters.mp4",   
-]
 
 const ancho = Dimensions.get("window").width;
 const alto = Dimensions.get("window").height;
 
 const Main = ({ navigation }) => {
+
     const video = React.useRef(null);
     const video1 = React.useRef(null);
     const video2 = React.useRef(null);
@@ -59,7 +21,18 @@ const Main = ({ navigation }) => {
     const video4 = React.useRef(null);
     const video5 = React.useRef(null);
     const video6 = React.useRef(null);
-    const [status, setStatus] = React.useState({});
+    
+
+    const [funcionesVideos,setFuncionesVideos] = useState([ 
+        {name:'Hue', key: '1', comando:require("../Galery/video_hue.mp4"), num:video1},
+        {name:'Lighting', key: '2', comando: require("../Galery/video_light.mp4"), num:video2},
+        {name:'Contrast', key: '3', comando: require("../Galery/video_contrast.mp4"), num:video3},
+        {name:'Blur', key: '4', comando: require("../Galery/video_blur.mp4"), num:video4},
+        {name:'Saturation', key: '5', comando: require("../Galery/video_sat.mp4"), num:video5},   
+        {name:'Filters', key: '6', comando: require("../Galery/video_filters.mp4"), num:video6} 
+    ]);
+
+    //const [status, setStatus] = React.useState({});
     return (
         <View style={estilos.containerMain}>
             <View style={estilos.containerLogo}>
@@ -85,42 +58,30 @@ const Main = ({ navigation }) => {
                 </View>
                 <View style={estilos.containerControlF2}>
                     <View style={estilos.containerContrF2C0}>                    
-                        {/* <FlatList
-                            data={FUNCIONES}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={ ({ item }) => 
-                                <View style={estilos.posterImage}>
-                                    <Image style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
-                                            source={item.comando}
-                                    />
-                                    <Text style={estilos.textoAlter}>{item.name}</Text>
-                                </View>
-                            } 
-                            keyExtractor={item => item.id}
-                        />  */}
-                        <FlatList
-                            data={FUNCIONES_VIDEOS}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={ ({ item }) => 
-                                <View style={estilos.posterImage}>
-                                    <Video
-                                        ref={'video'+item.vid}
-                                        style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
-                                        source={item.comando} 
-                                        useNativeControls
-                                        resizeMode="contain"
-                                        isLooping
-                                        shouldPlay
-                                        //onPlaybackStatusUpdate={status =>('video'+{item}).current.playAsync()}
-                                    />
-                                    <Text style={estilos.textoAlter}>{item.name}</Text>
-                                </View>
-                            } 
-                            keyExtractor={item => item.id}
-                        />  
-                   </View>
+                        <ScrollView horizontal={true}>
+                            {funcionesVideos.map((item)=>{
+                                return(
+                                    <View key={item.key} style={estilos.posterImage}>
+                                        <Video 
+                                            key={item.key}
+                                            ref={item.num}
+                                            style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
+                                            source={item.comando} 
+                                            useNativeControls
+                                            resizeMode="contain"
+                                            isLooping
+                                            shouldPlay
+                                            rate={0.7}
+                                            //onPlaybackStatusUpdate={status =>({item.key}).current.playAsync()}
+                                        />
+                                        <Text style={estilos.textoAlter}>{item.name}</Text>
+                                    </View>    
+                                    
+                                    )
+                                })
+                            }    
+                        </ScrollView>
+                    </View>
                 </View>
             </View>
             <View style={estilos.containerCam}>
@@ -132,7 +93,8 @@ const Main = ({ navigation }) => {
                             style={estilos.iconCamera}>
                             <TouchableOpacity style={estilos.botonCamara}
                                 title="Go to Camera"
-                                onPress={() => navigation.navigate('Camera')}>
+                                onPress={() => navigation.navigate('Camera')}
+                            >
                             </TouchableOpacity>
                         </ImageBackground>
                     </View>
@@ -181,6 +143,7 @@ const Main = ({ navigation }) => {
         </View>
     );
 };
+
 const estilos = StyleSheet.create({
     containerMain: { backgroundColor: "#171726", flex: 1 },
     containerLogo: { flex: 0.5, backgroundColor: "#0D0D16", justifyContent: "center", alignItems: "center", paddingTop: 45, paddingBottom: 15 },
@@ -223,7 +186,6 @@ const estilos = StyleSheet.create({
     textoHub: { color: "#fff", fontSize: 17, paddingBottom: 0 },
     textoAlter: { color: "#fff", fontSize: 17, padding: 7 },
     
-
     videoMain: { flex: 1, width: '50%', alignItems: 'stretch', borderRadius: 7 },
 
     posterImage: { flex:1, width:150,height: '95%', resizeMode: 'cover', borderRadius: 7, backgroundColor:'rgba(0,255,0,0)', margin:5, justifyContent:'center', alignItems:'center' }
