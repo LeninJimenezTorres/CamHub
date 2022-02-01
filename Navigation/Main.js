@@ -24,12 +24,12 @@ const Main = ({ navigation }) => {
     
 
     const [funcionesVideos,setFuncionesVideos] = useState([ 
-        {name:'Hue', key: '1', comando:require("../Galery/video_hue.mp4"), num:video1},
-        {name:'Lighting', key: '2', comando: require("../Galery/video_light.mp4"), num:video2},
-        {name:'Contrast', key: '3', comando: require("../Galery/video_contrast.mp4"), num:video3},
-        {name:'Blur', key: '4', comando: require("../Galery/video_blur.mp4"), num:video4},
-        {name:'Saturation', key: '5', comando: require("../Galery/video_sat.mp4"), num:video5},   
-        {name:'Filters', key: '6', comando: require("../Galery/video_filters.mp4"), num:video6} 
+        {name:'Hue', key: '1', comando:require("../Galery/video_hue.mp4"), num:video1, post:require("../Galery/func_hue.png")},
+        {name:'Lighting', key: '2', comando: require("../Galery/video_light.mp4"), num:video2, post:require("../Galery/func_light.png")},
+        {name:'Contrast', key: '3', comando: require("../Galery/video_contrast.mp4"), num:video3, post:require("../Galery/func_contrast.png")},
+        {name:'Blur', key: '4', comando: require("../Galery/video_blur.mp4"), num:video4, post:require("../Galery/func_blur.png")},
+        {name:'Saturation', key: '5', comando: require("../Galery/video_sat.mp4"), num:video5, post:require("../Galery/func_satu.png")},   
+        {name:'Filters', key: '6', comando: require("../Galery/video_filters.mp4"), num:video6, post:require("../Galery/func_filters.png")} 
     ]);
 
     //const [status, setStatus] = React.useState({});
@@ -71,6 +71,9 @@ const Main = ({ navigation }) => {
                                             resizeMode="contain"
                                             isLooping
                                             shouldPlay
+                                            posterSource={item.post}
+                                            usePoster
+                                            posterStyle={{width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
                                             rate={0.7}
                                             //onPlaybackStatusUpdate={status =>({item.key}).current.playAsync()}
                                         />
@@ -93,7 +96,7 @@ const Main = ({ navigation }) => {
                             style={estilos.iconCamera}>
                             <TouchableOpacity style={estilos.botonCamara}
                                 title="Go to Camera"
-                                onPress={() => navigation.navigate('Camera')}
+                                onPress={() => navigation.navigate('CamHub')}
                             >
                             </TouchableOpacity>
                         </ImageBackground>

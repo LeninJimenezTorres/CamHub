@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from "./Navigation/Main";
-import Camera from "./Navigation/Camera";
+import CamHub from "./Navigation/CamHub";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,9 +15,9 @@ function MyStack() {
         options={{headerShown:false}}
       />
       <Stack.Screen
-        name='Camera'
-        component={Camera}
-        options={{headerShown:false}}
+        name='CamHub'
+        component={CamHub}
+        options={{headerShown:true}}
       />
     </Stack.Navigator>
   )

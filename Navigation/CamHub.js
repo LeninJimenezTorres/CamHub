@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet, Button, PermissionsAndroid, Alert, Text} from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { Camera } from 'expo-camera';
+
 
 async function requestCameraPermission () {
   try {
@@ -27,7 +29,7 @@ async function requestCameraPermission () {
   }
 };
 
-const Camera = ({ navigation }) => {
+const CamHub = ({ navigation }) => {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
   const validar=requestCameraPermission();
@@ -44,4 +46,4 @@ const estilos = StyleSheet.create({
   videoMain: { flex: 1, width: '50%', alignItems: 'stretch', borderRadius: 7 },
 });
 
-export default Camera;
+export default CamHub;
