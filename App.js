@@ -17,7 +17,7 @@ function MyStack() {
       <Stack.Screen
         name='CamHub'
         component={CamHub}
-        options={{headerShown:true}}
+        options={{headerShown:false}}
       />
     </Stack.Navigator>
   )

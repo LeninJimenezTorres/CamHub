@@ -58,11 +58,17 @@ const Main = ({ navigation }) => {
                 </View>
                 <View style={estilos.containerControlF2}>
                     <View style={estilos.containerContrF2C0}>                    
-                        <ScrollView horizontal={true}>
+                        <ScrollView 
+                            horizontal={true} 
+                            //ref={ref => this.scrollView = ref} 
+                            //onContentSizeChange={(contentWidth, contentHeight)=>{
+                                //this.scrollView.scrollToEnd({animated: true});
+                            //}}
+                        >
                             {funcionesVideos.map((item)=>{
                                 return(
                                     <View key={item.key} style={estilos.posterImage}>
-                                        <Video 
+                                        {/* <Video 
                                             key={item.key}
                                             ref={item.num}
                                             style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
@@ -76,6 +82,13 @@ const Main = ({ navigation }) => {
                                             posterStyle={{width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
                                             rate={0.7}
                                             //onPlaybackStatusUpdate={status =>({item.key}).current.playAsync()}
+                                        /> */}
+                                        <Image
+                                            source={item.post}
+                                            key={item.key}
+                                            style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
+                                            
+                                            //style={{backgroundColor:'rgba(255,255,255,0.1)',width:'100%', height:'100%', resizeMode:'cover', justifyContent:'center', alignContent:'center', alignSelf:'center', alignItems:'center'}}
                                         />
                                         <Text style={estilos.textoAlter}>{item.name}</Text>
                                     </View>    

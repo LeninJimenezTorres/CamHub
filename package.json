@@ -14,9 +14,9 @@
     "@react-navigation/native-stack": "^6.2.5",
     "expo": "~44.0.0",
     "expo-av": "~10.2.0",
-    "expo-camera": "~12.1.0",
+    "expo-camera": "~12.1.2",
     "expo-image-picker": "~12.0.1",
-    "expo-linear-gradient": "~11.0.0",
+    "expo-linear-gradient": "~11.0.3",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -25,7 +25,9 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-vision-camera": "^2.12.0",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "expo-media-library": "~14.0.0",
+    "expo-permissions": "~13.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
